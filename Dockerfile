@@ -14,12 +14,12 @@ RUN groupadd --gid 1024 docker_user_group \
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
 ENV NOTVISIBLE "in users profile"
-ENV PATH="/opt/conda/bin:$PATH" \
-  && nnUNet_raw_data_base="/dataset/nnUNet_raw_data_base" \
-  && nnUNet_preprocessed="/dataset/nnUNet_preprocessed" \
-  && RESULTS_FOLDER="/dataset/nnUNet_trained_models"
 
 RUN echo "export VISIBLE=now" >> /etc/profile
+RUN echo 'export PATH="/opt/conda/bin:$PATH"'  >> /etc/profile
+RUN echo 'export nnUNet_raw_data_base="/dataset/nnUNet_raw_data_base"' >> /etc/profile
+RUN echo 'export nnUNet_preprocessed="/dataset/nnUNet_preprocessed"' >> /etc/profile
+RUN echo 'export RESULTS_FOLDER="/dataset/nnUNet_trained_models"' >> /etc/profile
 
 WORKDIR /workspace
 COPY ./   /workspace
